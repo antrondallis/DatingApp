@@ -11,6 +11,7 @@ using System.Security.Claims;
 using CloudinaryDotNet.Actions;
 using DatingApp.API.Models;
 using System.Linq;
+using System;
 
 namespace DatingApp.API.Controllers
 {
@@ -92,6 +93,18 @@ namespace DatingApp.API.Controllers
             }
 
             return BadRequest("Could not add the photo");
+        }
+
+        [AllowAnonymous]
+        [HttpPost("AddPhotoUrl")]
+        public async Task<IActionResult> AddPhotoUrl(Photo photo, int userId)
+        {
+            photo.IsMain = true;
+            photo.DateAdded = DateTime.Now;
+            photo.UserId = userId;
+
+            var createdPhoto = await _repo.AddPhotoUrl(photo);
+            return StatusCode(201);
         }
 
         [HttpPost("{photoId}/setMain")]

@@ -33,6 +33,8 @@ export class MemberDetailComponent implements OnInit {
         preview: false
       }
     ];
+
+    console.log(this.user);
     this.galleryImages = this.getImages();
   }
 
